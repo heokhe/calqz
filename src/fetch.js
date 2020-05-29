@@ -1,6 +1,4 @@
-export const TELEGRAM_URL = `https://api.telegram.org/bot${process.env.TOKEN}`;
-// eslint-disable-next-line prefer-destructuring
-export const APP_URL = process.env.APP_URL;
+import { TELEGRAM_URL } from './constants';
 
 /** @returns {string} */
 export function fetch(endpoint) {

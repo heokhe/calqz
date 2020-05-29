@@ -1,7 +1,8 @@
 import calc from '@hkh12/node-calc';
 import { fetch } from './fetch';
+import { matchesCommand, stripCommand } from './command';
 
-export function sendMessage(id, text) {
+function sendMessage(id, text) {
   return fetch(`/sendMessage?chat_id=${id}&text=${encodeURIComponent(text)}&parse_mode=html`);
 }
 
@@ -18,8 +19,18 @@ function handleCalc(id, expr) {
   }
 }
 
-export function setWebhook() {
-  fetch(`/setWebhook?url=${encodeURIComponent(APP_URL)}`);
+function handleQuiz(id, expr) {
+  try {
+    const answer = calc(expr).toString();
+    if (answer === expr) {
+      sendMessage(id, '🤨');
+    } else {
+      const options = [answer, '0'];
+      fetch(`/sendPoll?chat_id=${id}&type=quiz&question=${encodeURIComponent(expr)}&options=${encodeURIComponent(JSON.stringify(options))}&correct_option_id=0&open_period=15&is_anonymous=false`);
+    }
+  } catch (_) {
+    sendMessage(id, '🚫');
+  }
 }
 
 export function doPost(e) {
@@ -28,9 +39,13 @@ export function doPost(e) {
     { chat: { id, type }, text } = message,
     isInPv = type === 'private';
   if (!text) return;
-  if (text.startsWith('/calculate ')) {
-    handleCalc(id, text.slice('/calculate '.length));
+  if (matchesCommand(text, 'calculate')) {
+    handleCalc(id, stripCommand(text));
+  } else if (matchesCommand(text, 'quiz')) {
+    handleQuiz(id, stripCommand(text));
   } else if (isInPv) {
     handleCalc(id, text);
   }
 }
+
+export { setWebhook } from './webhook';
