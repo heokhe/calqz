@@ -1,0 +1,30 @@
+{
+  "name": "calqz",
+  "private": true,
+  "version": "1.0.0",
+  "description": "A Telegram bot to help you evaluate math expressions, and generate math quizzes.",
+  "main": "Code.js",
+  "dependencies": {
+    "@hkh12/node-calc": "^2.1.1"
+  },
+  "devDependencies": {
+    "@hkh12/eslint-config": "^1.2.1",
+    "@types/google-apps-script": "^1.0.14",
+    "eslint": "^7.1.0",
+    "webpack": "^4.43.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hkh12/calqz.git"
+  },
+  "keywords": [],
+  "author": "Hosein Khansari <hrk.x11@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hkh12/calqz/issues"
+  },
+  "homepage": "https://github.com/hkh12/calqz#readme"
+}
