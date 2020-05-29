@@ -8,6 +8,7 @@
     "@hkh12/node-calc": "^2.1.1"
   },
   "devDependencies": {
+    "@google/clasp": "^2.3.0",
     "@hkh12/eslint-config": "^1.2.1",
     "@rollup/plugin-commonjs": "^12.0.0",
     "@rollup/plugin-node-resolve": "^8.0.0",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "build": "rollup -c && sed '$d' dist/Code.js --in-place && cp appsscript.json .clasp.json dist",
-    "deploy": "cd dist && clasp push && cd .."
+    "push": "cd dist && clasp push && cd .."
   },
   "repository": {
     "type": "git",
