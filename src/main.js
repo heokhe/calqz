@@ -1,6 +1,7 @@
 import calc from '@hkh12/node-calc';
 import { fetch } from './fetch';
 import { matchesCommand, stripCommand } from './command';
+import { generateQuiz } from './generateQuiz';
 
 function sendMessage(id, text) {
   return fetch(`/sendMessage?chat_id=${id}&text=${encodeURIComponent(text)}&parse_mode=html`);
@@ -25,8 +26,8 @@ function handleQuiz(id, expr) {
     if (answer === expr) {
       sendMessage(id, '🤨');
     } else {
-      const options = [answer, '0'];
-      fetch(`/sendPoll?chat_id=${id}&type=quiz&question=${encodeURIComponent(expr)}&options=${encodeURIComponent(JSON.stringify(options))}&correct_option_id=0&open_period=15&is_anonymous=false`);
+      const { answers, trueIndex } = generateQuiz(expr);
+      fetch(`/sendPoll?chat_id=${id}&type=quiz&question=${encodeURIComponent(expr)}&options=${encodeURIComponent(JSON.stringify(answers))}&correct_option_id=${trueIndex}&open_period=15&is_anonymous=false`);
     }
   } catch (_) {
     sendMessage(id, '🚫');
