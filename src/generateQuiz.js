@@ -54,8 +54,10 @@ export function generateQuiz(expression) {
   const correctAnswer = calc(expression);
   const answers = [correctAnswer, ...FUNCTIONS.map(f => calcFromTokens(f(tokens)))];
   const finalAnswers = shuffle(unique(answers)).map(String);
+  const time = 2 + Math.floor(Math.sqrt(tokens.length * expression.replace(/ /g, '').length));
   return {
     answers: finalAnswers,
-    trueIndex: finalAnswers.indexOf(String(correctAnswer))
+    trueIndex: finalAnswers.indexOf(String(correctAnswer)),
+    time
   };
 }

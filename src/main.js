@@ -26,8 +26,8 @@ function handleQuiz(id, expr) {
     if (answer === expr) {
       sendMessage(id, '🤨');
     } else {
-      const { answers, trueIndex } = generateQuiz(expr);
-      fetch(`/sendPoll?chat_id=${id}&type=quiz&question=${encodeURIComponent(expr)}&options=${encodeURIComponent(JSON.stringify(answers))}&correct_option_id=${trueIndex}&open_period=15&is_anonymous=false`);
+      const { answers, trueIndex, time } = generateQuiz(expr);
+      fetch(`/sendPoll?chat_id=${id}&type=quiz&question=${encodeURIComponent(expr)}&options=${encodeURIComponent(JSON.stringify(answers))}&correct_option_id=${trueIndex}&open_period=${time}&is_anonymous=false`);
     }
   } catch (_) {
     sendMessage(id, '🚫');
