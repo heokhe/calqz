@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "A Telegram bot to help you evaluate math expressions, and generate math quizzes.",
-  "main": "Code.js",
+  "main": "dist/Code.js",
   "dependencies": {
     "@hkh12/node-calc": "^2.1.1"
   },
