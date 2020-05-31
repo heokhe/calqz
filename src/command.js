@@ -4,7 +4,7 @@ const startsWithCaseInsensetive = (a, b) => a.toLowerCase().startsWith(b.toLower
 
 export function matchesCommand(message, commandName) {
   return [commandName, `${commandName}@${USERNAME}`].some(s => {
-    return startsWithCaseInsensetive(message, `/${s} `);
+    return startsWithCaseInsensetive(message, `/${s}`);
   });
 }
 
