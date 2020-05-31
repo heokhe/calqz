@@ -66,7 +66,7 @@ export function doPost(e) {
     } else if (matchesCommand(text, 'quiz')) {
       handleQuiz(id, stripCommand(text));
     } else if (matchesCommand(text, 'help') || matchesCommand(text, 'start')) {
-      sendMessage(id, `Hi! I'm your calculator in Telegram. You can use me in this ways:
+      sendMessage(id, `Hi! I'm your calculator in Telegram. You can use me in these ways:
 - <code>/calculate 2*2</code>
 - Or only <code>2*2</code> (only works in this chat)
 - Inline mode: <code>@${USERNAME} 2*2</code>
