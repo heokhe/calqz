@@ -2,6 +2,7 @@ import calc from '@hkh12/node-calc';
 import { fetch } from './fetch';
 import { matchesCommand, stripCommand } from './command';
 import { generateQuiz } from './generateQuiz';
+import { USERNAME } from './constants';
 
 function sendMessage(id, text) {
   return fetch(`/sendMessage?chat_id=${id}&text=${encodeURIComponent(text)}&parse_mode=html`);
@@ -64,6 +65,14 @@ export function doPost(e) {
       handleCalc(id, stripCommand(text));
     } else if (matchesCommand(text, 'quiz')) {
       handleQuiz(id, stripCommand(text));
+    } else if (matchesCommand(text, 'help') || matchesCommand(text, 'start')) {
+      sendMessage(id, `Hi! I'm your calculator in Telegram. You can use me in this ways:
+- <code>/calculate 2*2</code>
+- Or only <code>2*2</code> (only works in this chat)
+- Inline mode: <code>@${USERNAME} 2*2</code>
+Valid expressions contain <b>numbers, and +-*/^ operators</b>.
+
+I can also help you to <b>generate math quizzes</b>: <code>/quiz 2*2</code>.`);
     } else if (isInPv) {
       handleCalc(id, text);
     }
