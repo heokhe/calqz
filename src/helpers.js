@@ -10,3 +10,5 @@ export const shuffle = array => {
 };
 
 export const unique = array => array.filter((x, i) => array.indexOf(x) === i);
+
+export const isNonSense = (expr, answerString) => parseFloat(expr).toString() === answerString;
