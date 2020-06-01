@@ -1,4 +1,4 @@
-import calc from '@hkh12/node-calc';
+import { evalExpression as calc } from '@hkh12/node-calc';
 import { fetch } from './fetch';
 import { matchesCommand, stripCommand } from './command';
 import { generateQuiz } from './generateQuiz';

@@ -1,17 +1,7 @@
-import calc from '@hkh12/node-calc';
-import tokenize from '@hkh12/node-calc/tokenize';
-import { Parenthesis } from '@hkh12/node-calc/tokens';
+import { tokenize, evalTokens, Parenthesis } from '@hkh12/node-calc';
 import { pipe, shuffle, unique } from './helpers';
 
-const stringifyTokens = tokens => {
-  return tokens.map(t => {
-    return `${t.isNegative ? '-' : ''}${t._rawValue}`;
-  }).join('');
-};
-
-const calcFromTokens = tokens => {
-  return calc(stringifyTokens(tokens));
-};
+const stringifyTokens = tokens => tokens.join('');
 
 function randomlyRemoveParenthesis(tokens) {
   const output = [];
@@ -51,8 +41,8 @@ const FUNCTIONS = [
 
 export function generateQuiz(expression) {
   const tokens = tokenize(expression);
-  const correctAnswer = calc(expression);
-  const answers = [correctAnswer, ...FUNCTIONS.map(f => calcFromTokens(f(tokens)))];
+  const correctAnswer = evalTokens(tokens);
+  const answers = [correctAnswer, ...FUNCTIONS.map(f => evalTokens(f(tokens)))];
   const finalAnswers = shuffle(unique(answers)).map(String);
   const time = 2 + Math.floor(Math.sqrt(tokens.length * expression.replace(/ /g, '').length));
   return {
