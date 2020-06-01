@@ -1,4 +1,5 @@
 import { sendMessage } from '../sendMessage';
+import { USERNAME } from '../constants';
 
 export function handleHelp(id) {
   sendMessage(id, `Hi! I'm your calculator in Telegram. You can use me in these ways:
