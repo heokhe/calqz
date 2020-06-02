@@ -1,3 +1,4 @@
+import { fetch } from './fetch';
 import { APP_URL } from './constants';
 
 export function setWebhook() {
