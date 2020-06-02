@@ -11,7 +11,15 @@ export function handleQuiz(id, expr) {
       sendMessage(id, '🤨');
     } else {
       const { answers, trueIndex, time } = generateQuiz(expr);
-      fetch(`/sendPoll?chat_id=${id}&type=quiz&question=${encodeURIComponent(expr)}&options=${encodeURIComponent(JSON.stringify(answers))}&correct_option_id=${trueIndex}&open_period=${time}&is_anonymous=false`);
+      fetch('/sendPoll', {
+        chat_id: id,
+        type: 'quiz',
+        question: `${expr} = ?`,
+        options: JSON.stringify(answers),
+        correct_option_id: trueIndex,
+        open_period: time,
+        is_anonymous: false
+      });
     }
   } catch (_) {
     sendMessage(id, '🚫');
