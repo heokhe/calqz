@@ -1,4 +1,6 @@
-import { tokenize, evalTokens, Parenthesis } from '@hkh12/node-calc';
+import {
+  tokenize, evalTokens, Parenthesis, Operator, Token
+} from '@hkh12/node-calc';
 import { pipe, shuffle, unique } from './helpers';
 
 const stringifyTokens = tokens => tokens.join('');
@@ -32,19 +34,36 @@ function tokenizeFromRightToLeft(tokens) {
   return output;
 }
 
+function solveWithIncorrectPriorities(tokens, priorities = shuffle([1, 2, 3])) {
+  const output = [];
+  for (const token of tokens) {
+    if (token.isOperator) {
+      const newToken = new Operator(token.type);
+      newToken.priority = priorities[token.priority - 1];
+      output.push(newToken);
+    } else if (token instanceof Parenthesis) {
+      const innerTokens = tokenize(token.innerValue);
+      const newInnerTokens = solveWithIncorrectPriorities(innerTokens, priorities);
+      const innerValue = evalTokens(newInnerTokens);
+      output.push(new Token(innerValue, token.isNegative));
+    } else output.push(token);
+  }
+  return output;
+}
+
 const FUNCTIONS = [
   randomlyRemoveParenthesis,
   tokenizeFromRightToLeft,
   pipe(randomlyRemoveParenthesis, tokenizeFromRightToLeft),
-  pipe(tokenizeFromRightToLeft, randomlyRemoveParenthesis)
+  solveWithIncorrectPriorities
 ];
 
 export function generateQuiz(expression) {
   const tokens = tokenize(expression);
-  const correctAnswer = evalTokens(tokens);
+  const correctAnswer = evalTokens([...tokens]); // because evalTokens mutates
   const answers = [correctAnswer, ...FUNCTIONS.map(f => evalTokens(f(tokens)))];
   const finalAnswers = shuffle(unique(answers)).map(String);
-  const time = 2 + Math.floor(Math.sqrt(tokens.length * expression.replace(/ /g, '').length));
+  const time = Math.floor(Math.sqrt(tokens.length * expression.replace(/ /g, '').length));
   return {
     answers: finalAnswers,
     trueIndex: finalAnswers.indexOf(String(correctAnswer)),
