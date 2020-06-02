@@ -7,17 +7,17 @@ export function doPost(e) {
   if (inline_query) {
     handlers.handleInline(inline_query.id, inline_query.query);
   } else if (message) {
-    const { chat: { id, type }, text } = message,
+    const { chat: { id, type }, text, message_id } = message,
       isInPv = type === 'private';
     if (!text) return;
     if (matchesCommand(text, 'calculate')) {
-      handlers.handleCalc(id, stripCommand(text));
+      handleCalc(id, message_id, stripCommand(text));
     } else if (matchesCommand(text, 'quiz')) {
-      handlers.handleQuiz(id, stripCommand(text));
+      handleQuiz(id, stripCommand(text));
     } else if (matchesCommand(text, 'help') || matchesCommand(text, 'start')) {
-      handlers.handleHelp(id);
+      handleHelp(id);
     } else if (isInPv) {
-      handlers.handleCalc(id, text);
+      handleCalc(id, message_id, text);
     }
   }
 }

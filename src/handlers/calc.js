@@ -2,15 +2,14 @@ import { evalExpression } from '@hkh12/node-calc';
 import { sendMessage } from '../sendMessage';
 import { isNonSense } from '../helpers';
 
-export function handleCalc(id, expr) {
+export function handleCalc(id, replyId, expr) {
+  let text;
   try {
     const answer = evalExpression(expr).toString();
-    if (isNonSense(expr, answer)) {
-      sendMessage(id, '🤨');
-    } else {
-      sendMessage(id, `${expr} = <b>${answer}</b>`);
-    }
+    text = isNonSense(expr, answer) ? '🤨' : `${expr} = <b>${answer}</b>`;
   } catch (_) {
-    sendMessage(id, '🚫');
+    text = '🚫';
+  } finally {
+    sendMessage(id, text, { reply_to_message_id: replyId });
   }
 }
