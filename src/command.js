@@ -9,5 +9,7 @@ export function matchesCommand(message, commandName) {
 }
 
 export function stripCommand(message) {
-  return message.slice(message.indexOf(' ') + 1);
+  const index = message.indexOf(' ');
+  if (index === -1) return '';
+  return message.slice(index + 1);
 }
