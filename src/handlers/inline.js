@@ -2,6 +2,8 @@ import { evalExpression } from '@hkh12/node-calc';
 import { fetch } from '../fetch';
 import { isNonSense } from '../helpers';
 
+const CACHE_TIME = 60 * 60 * 24; // one day
+
 export function handleInline(inlineId, query) {
   let results;
   try {
@@ -10,7 +12,7 @@ export function handleInline(inlineId, query) {
     results = [{
       id: 'answer',
       type: 'article',
-      title: answer,
+      title: `= ${answer}`,
       input_message_content: {
         parse_mode: 'html',
         message_text: `${query} = <b>${answer}</b>`
@@ -19,6 +21,6 @@ export function handleInline(inlineId, query) {
   } catch (_) {
     results = [];
   } finally {
-    fetch(`/answerInlineQuery?inline_query_id=${inlineId}&results=${encodeURIComponent(JSON.stringify(results))}&cache_time=${60 * 60 * 24 * 3}`);
+    fetch(`/answerInlineQuery?inline_query_id=${inlineId}&results=${encodeURIComponent(JSON.stringify(results))}&cache_time=${CACHE_TIME}`);
   }
 }
