@@ -1,6 +1,6 @@
 import { evalExpression } from '@hkh12/node-calc';
 import { fetch } from '../fetch';
-import { generateQuiz } from '../generateQuiz';
+import { generateQuiz } from '../quiz';
 import { sendMessage } from '../sendMessage';
 import { isNonSense } from '../helpers';
 

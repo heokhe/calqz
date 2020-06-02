@@ -8,6 +8,5 @@ export function fetch(endpoint, data = {}) {
   }).join('&');
   const response = UrlFetchApp.fetch(`${TELEGRAM_URL}${endpoint}?${qs}`);
   const text = response.getContentText();
-  Logger.log(text);
   return text;
 }
