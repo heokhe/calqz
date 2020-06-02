@@ -11,13 +11,13 @@ export function doPost(e) {
       isInPv = type === 'private';
     if (!text) return;
     if (matchesCommand(text, 'calculate')) {
-      handleCalc(id, message_id, stripCommand(text));
+      handlers.handleCalc(id, message_id, stripCommand(text));
     } else if (matchesCommand(text, 'quiz')) {
-      handleQuiz(id, stripCommand(text));
+      handlers.handleQuiz(id, stripCommand(text));
     } else if (matchesCommand(text, 'help') || matchesCommand(text, 'start')) {
-      handleHelp(id);
+      handlers.handleHelp(id);
     } else if (isInPv) {
-      handleCalc(id, message_id, text);
+      handlers.handleCalc(id, message_id, text);
     }
   }
 }
