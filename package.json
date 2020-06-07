@@ -5,7 +5,7 @@
   "description": "A Telegram bot to help you evaluate math expressions, and generate math quizzes.",
   "main": "dist/Code.js",
   "dependencies": {
-    "@hkh12/node-calc": "^3.1.1"
+    "@hkh12/node-calc": "^4.0.0-beta.0"
   },
   "devDependencies": {
     "@google/clasp": "^2.3.0",
