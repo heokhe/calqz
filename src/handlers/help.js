@@ -9,6 +9,7 @@ export function handleHelp(id) {
 Valid expressions contain <b>numbers, +-*/^ operators</b>, and functions:
 - sin(x), cos(x), cot(x), tan(x)
 - sqrt(x), cbrt(x)
+- abs(x), x! (or fact(x))
 
 I can also help you to <b>generate math quizzes</b>: <code>/quiz 2*2</code>.`);
 }
