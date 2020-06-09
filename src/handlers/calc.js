@@ -6,7 +6,7 @@ export function handleCalc(id, replyId, expr) {
   try {
     const tokens = tokenize(expr);
     if (tokens.length === 1) text = '🤨';
-    else text = evalTokens(expr).toString();
+    else text = evalTokens(tokens).toString();
   } catch (_) {
     text = '🚫';
   } finally {
