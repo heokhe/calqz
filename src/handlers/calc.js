@@ -1,11 +1,12 @@
 import { evalTokens, tokenize } from '@hkh12/node-calc';
 import { sendMessage } from '../sendMessage';
+import { isNonSense } from '../helpers';
 
 export function handleCalc(id, replyId, expr) {
   let text;
   try {
     const tokens = tokenize(expr);
-    if (tokens.length === 1) text = '🤨';
+    if (isNonSense(tokens)) text = '🤨';
     else text = `${expr} = <b>${evalTokens(tokens).toString()}</b>`;
   } catch (_) {
     text = '🚫';
