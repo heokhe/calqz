@@ -17,8 +17,7 @@ const NUMBER_MANIPULATORS = [
   nm.produceRandomValues
 ];
 
-export function generateQuiz(expression) {
-  const tokens = tokenize(expression);
+export function generateQuiz(tokens) {
   const correctAnswer = evalTokens([...tokens]); // because evalTokens mutates
   const answers = [
     correctAnswer,

@@ -1,16 +1,15 @@
-import { evalExpression } from '@hkh12/node-calc';
+import { tokenize } from '@hkh12/node-calc';
 import { fetch } from '../fetch';
 import { generateQuiz } from '../quiz';
 import { sendMessage } from '../sendMessage';
-import { isNonSense } from '../helpers';
 
 export function handleQuiz(id, expr) {
   try {
-    const answer = evalExpression(expr).toString();
-    if (isNonSense(expr, answer)) {
+    const tokens = tokenize(expr);
+    if (tokens.length === 1) {
       sendMessage(id, '🤨');
     } else {
-      const { answers, trueIndex, time } = generateQuiz(expr);
+      const { answers, trueIndex, time } = generateQuiz(tokens);
       fetch('/sendPoll', {
         chat_id: id,
         type: 'quiz',

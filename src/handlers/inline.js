@@ -1,14 +1,14 @@
-import { evalExpression } from '@hkh12/node-calc';
+import { tokenize, evalTokens } from '@hkh12/node-calc';
 import { fetch } from '../fetch';
-import { isNonSense } from '../helpers';
 
 const CACHE_TIME = 60 * 60 * 24; // one day
 
 export function handleInline(inlineId, query) {
   let results;
   try {
-    const answer = evalExpression(query).toString();
-    if (isNonSense(query, answer)) throw new Error('non-sense');
+    const tokens = tokenize(expr);
+    if (tokens.length === 1) throw new Error('non-sense');
+    const answer = evalTokens(tokens).toString();
     results = [{
       id: 'answer',
       type: 'article',
