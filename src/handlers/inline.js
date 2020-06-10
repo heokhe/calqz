@@ -7,7 +7,7 @@ const CACHE_TIME = 60 * 60 * 24; // one day
 export function handleInline(inlineId, query) {
   let results;
   try {
-    const tokens = tokenize(expr);
+    const tokens = tokenize(query);
     if (isNonSense(tokens)) throw new Error('non-sense');
     const answer = evalTokens(tokens).toString();
     results = [{

@@ -4,8 +4,10 @@
   "env": {
     "node": true
   },
+  "globals": {
+    "UrlFetchApp": false
+  },
   "rules": {
-    "no-undef": "off",
     "camelcase": "off"
   }
 }
