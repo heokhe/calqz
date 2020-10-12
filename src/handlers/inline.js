@@ -25,7 +25,7 @@ export function handleInline(inlineId, query) {
     results = [];
   } finally {
     fetch('/answerInlineQuery', {
-      intline_query_id: inlineId,
+      inline_query_id: inlineId,
       results: JSON.stringify(results),
       cache_time: CACHE_TIME
     });
