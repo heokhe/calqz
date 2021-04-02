@@ -10,11 +10,12 @@ export function doPost(e) {
     const { chat: { id, type }, text, message_id } = message,
       isInPv = type === 'private';
     if (!text) return;
+
     if (matchesCommand(text, 'calculate')) {
       handlers.handleCalc(id, message_id, stripCommand(text), isInPv);
     } else if (matchesCommand(text, 'quiz')) {
       handlers.handleQuiz(id, message_id, stripCommand(text), isInPv);
-    } else if (isInPv && (matchesCommand(text, 'help') || matchesCommand(text, 'start'))) {
+    } else if (matchesCommand(text, 'help') || matchesCommand(text, 'start')) {
       handlers.handleHelp(id);
     } else if (isInPv) {
       handlers.handleCalc(id, message_id, text, isInPv);
