@@ -1,6 +1,5 @@
 import { TELEGRAM_URL } from './constants';
 
-// copy halale!
 /** @returns {string} */
 export function fetch(endpoint, data = {}) {
   const qs = Object.entries(data).map(([key, value]) => {
