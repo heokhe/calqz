@@ -1,11 +1,5 @@
-import { USERNAME } from './constants';
-
-const startsWithCaseInsensetive = (a, b) => a.toLowerCase().startsWith(b.toLowerCase());
-
 export function matchesCommand(message, commandName) {
-  return [commandName, `${commandName}@${USERNAME}`].some(s => {
-    return startsWithCaseInsensetive(message, `/${s}`);
-  });
+  return message.startsWith(`/${commandName}`);
 }
 
 export function stripCommand(message) {
