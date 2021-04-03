@@ -3,17 +3,11 @@ import { fetch } from '../fetch';
 import { generateQuiz } from '../quiz';
 import { sendMessage } from '../sendMessage';
 import { isNonSense } from '../helpers';
-import { MAX_EXPR_LENGTH } from '../constants';
 
 export function handleQuiz(id, replyId, expr, isInPv) {
-  if (!isInPv && (!expr || expr.length > MAX_EXPR_LENGTH)) return;
+  if (!isInPv && !expr) return;
 
   try {
-    if (expr.length > MAX_EXPR_LENGTH) {
-      sendMessage(id, '🤯', { reply_to_message_id: replyId });
-      return;
-    }
-
     const tokens = tokenize(expr);
     if (isNonSense(tokens)) {
       sendMessage(id, '🤨', { reply_to_message_id: replyId });
