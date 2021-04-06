@@ -25,7 +25,7 @@ export function generateQuiz(tokens) {
     ...NUMBER_MANIPULATORS.map(f => f(correctAnswer))
   ];
   const finalAnswers = shuffle(unique(answers)).map(String);
-  const time = Math.floor(Math.sqrt(tokens.length * tokens.join('').replace(/ /g, '').length));
+  const time = Math.max(Math.floor(Math.sqrt(tokens.length * tokens.join('').replace(/ /g, '').length)), 15);
   return {
     answers: finalAnswers,
     trueIndex: finalAnswers.indexOf(String(correctAnswer)),
