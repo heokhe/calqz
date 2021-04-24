@@ -1,7 +1,9 @@
 import { evalTokens } from '@hkh12/node-calc';
 import * as tm from './tokenManipulations';
 import * as nm from './numberManipulations';
-import { pipe, shuffle, unique } from '../helpers';
+import {
+  pipe, shuffle, unique, formatNumber
+} from '../helpers';
 
 const TOKEN_MANIPULATORS = [
   tm.randomlyRemoveParenthesis,
@@ -24,7 +26,7 @@ export function generateQuiz(tokens) {
     ...TOKEN_MANIPULATORS.map(f => evalTokens(f(tokens))),
     ...NUMBER_MANIPULATORS.map(f => f(correctAnswer))
   ];
-  const finalAnswers = shuffle(unique(answers)).map(String);
+  const finalAnswers = shuffle(unique(answers)).map(formatNumber);
   const time = Math.max(Math.floor(Math.sqrt(tokens.length * tokens.join('').replace(/ /g, '').length)), 15);
   return {
     answers: finalAnswers,
