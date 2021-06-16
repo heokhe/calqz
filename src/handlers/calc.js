@@ -5,11 +5,10 @@ import { isNonSense, formatNumber } from '../helpers';
 export function handleCalc(message, expression) {
   const isInGroup = message.chat.type === 'group' || message.chat.type === 'supergroup';
   const chatId = message.chat.id;
-  let replyId = message.message_id;
+  const replyId = message.message_id;
 
   if (isInGroup && !expression && message.reply_to_message) {
     expression = message.reply_to_message.text;
-    replyId = message.reply_to_message.message_id;
   }
 
   if (isInGroup && !expression) return;
