@@ -12,5 +12,7 @@ Valid expressions contain <b>numbers, +-*/^ operators</b>, and functions:
 - abs(x), x! (or fact(x))
 - log(x) (base 10), ln(x) (base e)
 
-I can also help you to <b>generate math quizzes</b>: <code>/quiz 2*2</code>.`);
+I can also help you to <b>generate math quizzes</b>: <code>/quiz 2*2</code>.
+
+As @Mefi22 said, <i>made with fucken pain.</i>`);
 }
