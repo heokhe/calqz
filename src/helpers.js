@@ -15,6 +15,11 @@ export const unique = array => array.filter((x, i) => array.indexOf(x) === i);
 
 export const isNonSense = tokens => tokens.length === 1 && tokens[0].type === Token.TYPES.NUMBER;
 
+export const isTwoPlusTwo = tokens => tokens.length === 3
+  && tokens[0].value === 2
+  && tokens[2].value === 2
+  && tokens[1].operatorType === '+';
+
 export const formatNumber = number => {
   if (isNaN(number)) return 'NaN';
   if (number < 0) return `-${formatNumber(-number)}`;

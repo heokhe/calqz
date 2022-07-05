@@ -1,6 +1,6 @@
 import { evalTokens, tokenize } from '@hkh12/node-calc';
 import { sendMessage } from '../sendMessage';
-import { isNonSense, formatNumber } from '../helpers';
+import { isNonSense, formatNumber, isTwoPlusTwo } from '../helpers';
 
 export function handleCalc(message, expression) {
   const isInGroup = message.chat.type === 'group' || message.chat.type === 'supergroup';
@@ -16,8 +16,13 @@ export function handleCalc(message, expression) {
   let text;
   try {
     const tokens = tokenize(expression);
-    if (isNonSense(tokens)) text = '🤨';
-    else text = `${expression} = <b>${formatNumber(evalTokens(tokens))}</b>`;
+    if (isNonSense(tokens)) {
+      text = '🤨';
+    } else if (isTwoPlusTwo(tokens)) {
+      text = `${expression} = <b>5 😁</b>`;
+    } else {
+      text = `${expression} = <b>${formatNumber(evalTokens(tokens))}</b>`;
+    }
   } catch (_) {
     text = '🚫';
   } finally {
