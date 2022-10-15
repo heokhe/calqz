@@ -3,9 +3,16 @@ import { matchesCommand, stripCommand } from './command';
 
 export function doPost(e) {
   const contents = JSON.parse(e.postData.contents),
-    { message, inline_query } = contents;
+    { message, inline_query, edited_message } = contents;
   if (inline_query) {
     handlers.handleInline(inline_query.id, inline_query.query);
+  } else if (edited_message) {
+    const { text, chat } = edited_message;
+    if (matchesCommand(text, 'calculate')) {
+      handlers.handleCalc(edited_message, stripCommand(text));
+    } else if (chat.type === 'private') {
+      handlers.handleCalc(edited_message, text);
+    }
   } else if (message) {
     const { chat: { id, type }, text, message_id } = message,
       isInPv = type === 'private';

@@ -24,7 +24,7 @@ export function handleCalc(message, expression) {
       text = `${expression} = <b>${formatNumber(evalTokens(tokens))}</b>`;
     }
   } catch (_) {
-    text = '🚫';
+    text = '🚫\n(edit to fix)';
   } finally {
     sendMessage(chatId, text, { reply_to_message_id: replyId });
   }
